@@ -33,8 +33,6 @@ void folder::print_all(folder* root)
 	   cout<<root->name<<root->pref<<"("<<root->parrent->name<<root->parrent->pref<<")"<<endl;
 	else
 	   cout<<root->name<<root->pref<<endl;
- /*else
-	   cout<<"   "<<root->name<<root->pref<<"("<<root->parrent->name<<root->parrent->pref<<")"<<endl;*/
     for(unsigned int i=0; i<root->v.size(); i++)
 		if(root->v[i]->pref == ".f" || root->v[i]->pref == ".&")
 		  cout<<"   "<<root->v[i]->name<<root->v[i]->pref<<"("<<root->name<<root->pref<<")"<<endl;
@@ -244,17 +242,3 @@ void folder::copy_folder(string name)
 	  if(this->v[i]->name == name  && this->v[i]->pref == ".d")
 		 this->v.push_back(this->v[i]);
 }
-
-/*void folder::find__file(string nd, string nf)
-{
-	file* item=nullptr;
-	folder* ptr=this->change_folder(nd);
-	for(unsigned int i=0; i<ptr->v.size(); i++)
-	   if(ptr->v[i]->pref == ".f")
-		 if(ptr->v[i]->name == nf)
-			 item=(file*)ptr->v[i];
-   if(item == nullptr)
-	 throw 5;
-   cout<<item->name<<item->pref<<endl;
-   cout<<"   "<<item->get_data()<<endl;
-}*/
