@@ -5,17 +5,25 @@
 #include "file.h"
 #include "folder.h"
 #include "user.h"
+#include <fstream>
 
-
+const int max_length=5;
+ofstream fout;
+ifstream fin("file.txt");
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	fout.open("file.txt");
+
 	string cmd;
 	string name;
 	string nf;
 	user* u; // new user
 	char a;
 	vector<user*>p;
+	int schet=1;
+	vector<char*>str;
+	int h;
 
 	cout<<"HELLO:)"<<endl;
 	cout<<"create a new user: enter the name:   ";
@@ -264,16 +272,45 @@ int _tmain(int argc, _TCHAR* argv[])
 		   item->copy_folder(name);
 		}
 		else
+		if(cmd == "RH") // to recovery history
+		{
+			char d[max_length];
+		    schet=0;
+			while(!fin.eof())
+			{
+				fin.getline(d, max_length);
+				str.push_back(d);
+				schet++;
+			}
+			h=schet;
+		}
+		else
 		{
 			cout<<"enter the correct command"<<endl;
+			fout<<cmd<<"(error comand)"<<endl;
 		}
 		if(item->parrent != nullptr)
 		   cout<<"you are in "<<item->name<<"("<<item->parrent->name<<")"<<" folder"<<endl;
 		else
 		   cout<<"you are in root folder"<<endl;
-
-		cin>>cmd;
+	  if(schet != 0)
+	   {
+	     fout<<cmd<<endl;
+		 cin>>cmd;
+	   }
+	  else
+	   {
+		   cmd=str[h-schet];
+		   schet--;
+	   }
 	}
+	fout.close();
+	fin.close();
+	p.clear();
+	str.clear();
+	delete u;
+	delete item;
+	delete root;
 	root->print_all(root);
 	system("pause");
 	return 0;
